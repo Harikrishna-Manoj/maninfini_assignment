@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:maninfini_task/core/model/model.dart';
 
 class RowSource extends DataTableSource {
-  final List<Data>? employeeData;
+  final List<EmployeeDataModel>? employeeData;
   final int count;
   RowSource({
     required this.employeeData,

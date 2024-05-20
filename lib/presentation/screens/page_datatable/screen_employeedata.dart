@@ -40,7 +40,7 @@ class EmployeeDataScreen extends StatelessWidget {
                       ? PaginatedDataTable(
                           showEmptyRows: false,
                           sortColumnIndex: index,
-                          sortAscending: state.isSort ?? true,
+                          sortAscending: state.isSort ?? false,
                           header:
                               CustomSearchField(searchController: controller),
                           source: RowSource(

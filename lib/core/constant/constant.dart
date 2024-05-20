@@ -37,3 +37,4 @@ Map<int, String> monthMap = {
   11: 'Nov',
   12: 'Dec',
 };
+const String cartBoxName = "cartproduct";

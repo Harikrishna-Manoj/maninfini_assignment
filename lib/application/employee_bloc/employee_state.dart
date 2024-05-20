@@ -9,7 +9,7 @@ final class LoadingState extends EmployeeState {}
 
 // ignore: must_be_immutable
 final class LoadedEmployeeState extends EmployeeState {
-  final List<Data> employeeData;
+  final List<EmployeeDataModel> employeeData;
   bool? isSort;
   LoadedEmployeeState({required this.employeeData, this.isSort});
 }

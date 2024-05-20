@@ -27,9 +27,11 @@ class DataTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         keyboardType: isNumberField ? TextInputType.phone : TextInputType.name,
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp("[a-z A-Z.]")),
-        ],
+        inputFormatters: isNumberField
+            ? []
+            : [
+                FilteringTextInputFormatter.allow(RegExp("[a-z A-Z.]")),
+              ],
         validator: (value) {
           if (value == null || value.isEmpty) {
             return "This field should not be empty";

@@ -14,8 +14,8 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
       emit(LoadedEmployeeState(employeeData: myData));
     });
     on<SearchingEvent>((event, emit) {
-      List<Data> filterData = myData;
-      List<Data> employeeData = filterData
+      List<EmployeeDataModel> filterData = myData;
+      List<EmployeeDataModel> employeeData = filterData
           .where((element) => element.name!
               .toString()
               .toLowerCase()
@@ -25,9 +25,9 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     });
     bool isSort = false;
     on<SortingEvent>((event, emit) {
-      final service = EmployeeDataService();
+      final service = EmployeeDataOperationService();
       isSort = !isSort;
-      List<Data> sortingData =
+      List<EmployeeDataModel> sortingData =
           service.onSorting(event.columnIndex, event.ascending);
       emit(LoadedEmployeeState(employeeData: sortingData, isSort: isSort));
     });

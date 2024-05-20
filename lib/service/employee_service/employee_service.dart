@@ -1,7 +1,7 @@
 import 'package:maninfini_task/core/model/model.dart';
 
-class EmployeeDataService {
-  List<Data> onSorting(int columnIndex, bool ascending) {
+class EmployeeDataOperationService {
+  List<EmployeeDataModel> onSorting(int columnIndex, bool ascending) {
     if (columnIndex == 0) {
       ascending
           ? myData.sort((a, b) => a.name!.compareTo(b.name!))
