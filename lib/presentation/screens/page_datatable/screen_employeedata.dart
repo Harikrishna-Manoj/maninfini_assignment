@@ -27,81 +27,87 @@ class EmployeeDataScreen extends StatelessWidget {
         title: const Text("Employee Data"),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            SizedBox(
-              height: size.height * 0.035,
-            ),
-            SizedBox(
-              width: double.infinity,
-              child: BlocBuilder<EmployeeBloc, EmployeeState>(
-                builder: (context, state) {
-                  return state is LoadedEmployeeState
-                      ? state.employeeData.isNotEmpty
-                          ? PaginatedDataTable(
-                              showEmptyRows: false,
-                              sortColumnIndex: index,
-                              sortAscending: state.isSort ?? false,
-                              header: CustomSearchField(
-                                  searchController: controller),
-                              source: RowSource(
-                                employeeData: state.employeeData,
-                                count: state.employeeData.length,
-                              ),
-                              rowsPerPage: 8,
-                              columns: [
-                                DataColumn(
-                                    label: const Text(
-                                      "Name",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 14),
-                                    ),
-                                    onSort: (columnIndex, ascending) {
-                                      index = columnIndex;
-                                      context.read<EmployeeBloc>().add(
-                                          SortingEvent(
-                                              columnIndex: columnIndex,
-                                              ascending: ascending));
-                                    }),
-                                const DataColumn(
-                                  label: Text(
-                                    "Phone",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
-                                  ),
-                                ),
-                                DataColumn(
-                                  label: const Text(
-                                    "Date of Join",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 14),
-                                  ),
-                                  onSort: (columnIndex, ascending) {
-                                    index = columnIndex;
-                                    context.read<EmployeeBloc>().add(
-                                        SortingEvent(
-                                            columnIndex: columnIndex,
-                                            ascending: ascending));
-                                  },
-                                ),
-                              ],
-                            )
-                          : const Center(
-                              child: Text("No data"),
-                            )
-                      : const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.black,
-                            strokeWidth: 2,
-                          ),
-                        );
-                },
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CustomSearchField(searchController: controller),
+              SizedBox(
+                height: size.height * 0.035,
               ),
-            ),
-          ],
+              SizedBox(
+                width: double.infinity,
+                child: BlocBuilder<EmployeeBloc, EmployeeState>(
+                  builder: (context, state) {
+                    return state is LoadedEmployeeState
+                        ? state.employeeData.isNotEmpty
+                            ? SizedBox(
+                                width: size.width,
+                                child: PaginatedDataTable(
+                                  showEmptyRows: false,
+                                  sortColumnIndex: index,
+                                  sortAscending: state.isSort ?? false,
+                                  source: RowSource(
+                                    employeeData: state.employeeData,
+                                    count: state.employeeData.length,
+                                  ),
+                                  rowsPerPage: 8,
+                                  columnSpacing: size.width * 0.06,
+                                  columns: [
+                                    DataColumn(
+                                        label: const Text(
+                                          "Name",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 14),
+                                        ),
+                                        onSort: (columnIndex, ascending) {
+                                          index = columnIndex;
+                                          context.read<EmployeeBloc>().add(
+                                              SortingEvent(
+                                                  columnIndex: columnIndex,
+                                                  ascending: ascending));
+                                        }),
+                                    const DataColumn(
+                                      label: Text(
+                                        "Phone",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14),
+                                      ),
+                                    ),
+                                    DataColumn(
+                                      label: const Text(
+                                        "Date of Join",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 14),
+                                      ),
+                                      onSort: (columnIndex, ascending) {
+                                        index = columnIndex;
+                                        context.read<EmployeeBloc>().add(
+                                            SortingEvent(
+                                                columnIndex: columnIndex,
+                                                ascending: ascending));
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : const Center(
+                                child: Text("No data"),
+                              )
+                        : const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.black,
+                              strokeWidth: 2,
+                            ),
+                          );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:maninfini_task/core/constant/constant.dart';
-import 'package:maninfini_task/presentation/screens/page_add_employee/widget/add_employee.dart';
+import 'package:maninfini_task/presentation/widgets/add_employee.dart';
 
 class ScreenAddEmployee extends StatelessWidget {
   const ScreenAddEmployee({super.key});

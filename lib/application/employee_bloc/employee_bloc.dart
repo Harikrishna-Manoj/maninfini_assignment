@@ -23,7 +23,8 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     });
 
     on<SearchingEvent>((event, emit) {
-      List<EmployeeDataModel> filterData = myData;
+      List<EmployeeDataModel> filterData =
+          DataManageService().fetchEmployeeData();
       List<EmployeeDataModel> employeeData = filterData
           .where((element) => element.name!
               .toString()
