@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
+import 'package:maninfini_task/core/constant/constant.dart';
 import 'package:maninfini_task/core/debounce/debounce.dart';
+import 'package:maninfini_task/main.dart';
+import 'package:maninfini_task/presentation/screens/page_add_employee/screen_add_employee.dart';
 import 'package:maninfini_task/presentation/widgets/custom_search_widget.dart';
 import 'package:maninfini_task/presentation/widgets/data_table_widget.dart';
 
@@ -91,8 +94,13 @@ class EmployeeDataScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.black,
+        onPressed: () {
+          navigatorKey.currentState!.push(MaterialPageRoute(
+            builder: (context) => const ScreenAddEmployee(),
+          ));
+        },
+        child: const Icon(Icons.add, color: whiteColor),
       ),
     );
   }

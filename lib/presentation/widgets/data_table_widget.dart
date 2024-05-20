@@ -34,7 +34,7 @@ DataRow recentFileDataRow(var data) {
     cells: [
       DataCell(Text(data.name ?? "Name")),
       DataCell(Text(data.phone.toString())),
-      DataCell(Text(DateFormat("yyyy-MM-dd").format(data.joinDate))),
+      DataCell(Text(DateFormat("dd LLL yyyy").format(data.joinDate))),
     ],
   );
 }

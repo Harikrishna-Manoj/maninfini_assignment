@@ -30,11 +30,11 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
               contentPadding: EdgeInsets.only(bottom: 35, left: 15),
               prefixIcon: Icon(Icons.search),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide(color: Colors.grey),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(15)),
+                borderRadius: BorderRadius.all(Radius.circular(4)),
                 borderSide: BorderSide(color: Colors.grey),
               ),
               hintText: 'Enter for filter',
