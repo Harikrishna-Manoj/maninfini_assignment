@@ -11,7 +11,6 @@ class DataManageService {
   List<EmployeeDataModel> fetchEmployeeData() {
     final hiveBox = Hive.box<EmployeeDataModel>(employeeBoxName);
     List<EmployeeDataModel> employeeData = [...hiveBox.values];
-    print(employeeData.length);
     return employeeData;
   }
 }

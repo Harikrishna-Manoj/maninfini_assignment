@@ -80,6 +80,22 @@ class DatePickeCalendar extends StatelessWidget {
       readOnly: true,
       onTap: () async {
         DateTime? pickedDate = await showDatePicker(
+          builder: (context, child) {
+            return Theme(
+                data: Theme.of(context).copyWith(
+                  colorScheme: const ColorScheme.light(
+                    primary: Colors.black,
+                    onPrimary: Colors.white,
+                    onSurface: Colors.black,
+                  ),
+                  textButtonTheme: TextButtonThemeData(
+                    style: TextButton.styleFrom(
+                      foregroundColor: Colors.black,
+                    ),
+                  ),
+                ),
+                child: child!);
+          },
           context: context,
           firstDate: DateTime(2000),
           lastDate: DateTime(2050),

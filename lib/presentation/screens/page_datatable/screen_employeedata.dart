@@ -94,9 +94,10 @@ class EmployeeDataScreen extends StatelessWidget {
                                   ],
                                 ),
                               )
-                            : const Center(
-                                child: Text("No data"),
-                              )
+                            : SizedBox(
+                                width: size.width,
+                                height: size.height * 0.6,
+                                child: const Center(child: Text("No data")))
                         : const Center(
                             child: CircularProgressIndicator(
                               color: Colors.black,
