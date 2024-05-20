@@ -8,6 +8,15 @@ class EmployeeDataService {
       } else {
         myData.sort((a, b) => b.name!.compareTo(a.name!));
       }
+    } else if (columnIndex == 2) {
+      if (ascending) {
+        print("caled");
+        print(ascending);
+        myData.sort((a, b) => a.joinDate!.compareTo(b.joinDate!));
+      } else {
+        print("caled2");
+        myData.sort((a, b) => b.joinDate!.compareTo(a.joinDate!));
+      }
     }
     return myData;
   }

@@ -23,7 +23,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
           .toList();
       emit(LoadedEmployeeState(employeeData: employeeData));
     });
-    bool isSort = true;
+    bool isSort = false;
     on<SortingEvent>((event, emit) {
       final service = EmployeeDataService();
       isSort = !isSort;

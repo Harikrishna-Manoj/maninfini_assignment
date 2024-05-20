@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
 import 'package:maninfini_task/core/debounce/debounce.dart';
-import 'package:maninfini_task/core/model/model.dart';
-import 'package:maninfini_task/presentation/widgets/widgets.dart';
+import 'package:maninfini_task/presentation/widgets/custom_search_widget.dart';
+import 'package:maninfini_task/presentation/widgets/data_table_widget.dart';
 
 // ignore: must_be_immutable
 class EmployeeDataScreen extends StatelessWidget {
   EmployeeDataScreen({super.key});
 
   final debouncer = Debouncer(milliseconds: 500);
-
   TextEditingController controller = TextEditingController();
-
+  int? index;
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
@@ -37,12 +36,12 @@ class EmployeeDataScreen extends StatelessWidget {
                   return state is LoadedEmployeeState
                       ? PaginatedDataTable(
                           showEmptyRows: false,
-                          sortColumnIndex: 0,
+                          sortColumnIndex: index,
                           sortAscending: state.isSort ?? true,
                           header:
                               CustomSearchField(searchController: controller),
                           source: RowSource(
-                            myData: state.employeeData,
+                            employeeData: state.employeeData,
                             count: state.employeeData.length,
                           ),
                           rowsPerPage: 8,
@@ -55,6 +54,7 @@ class EmployeeDataScreen extends StatelessWidget {
                                       fontSize: 14),
                                 ),
                                 onSort: (columnIndex, ascending) {
+                                  index = columnIndex;
                                   context.read<EmployeeBloc>().add(SortingEvent(
                                       columnIndex: columnIndex,
                                       ascending: ascending));
@@ -66,12 +66,18 @@ class EmployeeDataScreen extends StatelessWidget {
                                     fontWeight: FontWeight.w600, fontSize: 14),
                               ),
                             ),
-                            const DataColumn(
-                              label: Text(
+                            DataColumn(
+                              label: const Text(
                                 "Date of Join",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w600, fontSize: 14),
                               ),
+                              onSort: (columnIndex, ascending) {
+                                index = columnIndex;
+                                context.read<EmployeeBloc>().add(SortingEvent(
+                                    columnIndex: columnIndex,
+                                    ascending: ascending));
+                              },
                             ),
                           ],
                         )
@@ -90,41 +96,4 @@ class EmployeeDataScreen extends StatelessWidget {
       ),
     );
   }
-}
-
-class RowSource extends DataTableSource {
-  final List<Data>? myData;
-  final int count;
-  RowSource({
-    required this.myData,
-    required this.count,
-  });
-
-  @override
-  DataRow? getRow(int index) {
-    if (index < rowCount) {
-      return recentFileDataRow(myData![index]);
-    } else {
-      return null;
-    }
-  }
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get rowCount => count;
-
-  @override
-  int get selectedRowCount => 0;
-}
-
-DataRow recentFileDataRow(var data) {
-  return DataRow(
-    cells: [
-      DataCell(Text(data.name ?? "Name")),
-      DataCell(Text(data.phone.toString())),
-      DataCell(Text(data.joinDate.toString())),
-    ],
-  );
 }
