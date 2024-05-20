@@ -7,7 +7,7 @@ class EmployeeDataModel {
   String? name;
 
   @HiveField(1)
-  int? phone;
+  String? phone;
 
   @HiveField(2)
   DateTime? joinDate;
@@ -19,38 +19,36 @@ class EmployeeDataModel {
 List<EmployeeDataModel> myData = [
   EmployeeDataModel(
       name: "Khaliq",
-      phone: 09876543,
+      phone: "09876543",
       joinDate: DateTime.parse("2027-03-04 06:06:48")),
   EmployeeDataModel(
       name: "David",
-      phone: 6464646,
+      phone: "6464646",
       joinDate: DateTime.parse("2011-05-04 06:06:48")),
   EmployeeDataModel(
       name: "Kamal",
-      phone: 8888,
+      phone: "8888",
       joinDate: DateTime.parse("2021-06-08 06:06:48")),
   EmployeeDataModel(
-      name: "Ali",
-      phone: 3333333,
-      joinDate: DateTime.parse("2023-03-23 06:06:48")),
+      name: "Ali", phone: "3333333", joinDate: DateTime.parse("2023-03-23")),
   EmployeeDataModel(
       name: "Muzal",
-      phone: 987654556,
+      phone: "987654556",
       joinDate: DateTime.parse("2013-03-12 06:06:48")),
   EmployeeDataModel(
       name: "Taimu",
-      phone: 46464664,
+      phone: "46464664",
       joinDate: DateTime.parse("2021-12-06 06:06:48")),
   EmployeeDataModel(
       name: "Mehdi",
-      phone: 5353535,
+      phone: "5353535",
       joinDate: DateTime.parse("2019-03-04 06:06:48")),
   EmployeeDataModel(
       name: "Rex",
-      phone: 244242,
+      phone: "244242",
       joinDate: DateTime.parse("2015-03-04 06:06:48")),
   EmployeeDataModel(
       name: "Alex",
-      phone: 323232323,
+      phone: "323232323",
       joinDate: DateTime.parse("2020-05-21 06:06:48")),
 ];

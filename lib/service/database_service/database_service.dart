@@ -4,6 +4,6 @@ import 'package:maninfini_task/core/model/model.dart';
 
 class DatabaseService {
   static openDataBase() async {
-    await Hive.openBox<EmployeeDataModel>(cartBoxName);
+    await Hive.openBox<EmployeeDataModel>(employeeBoxName);
   }
 }

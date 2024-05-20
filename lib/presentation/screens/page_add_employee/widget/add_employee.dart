@@ -2,8 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:maninfini_task/application/add_bloc/add_employee_data_bloc.dart';
 import 'package:maninfini_task/core/constant/constant.dart';
+import 'package:maninfini_task/core/model/model.dart';
+import 'package:maninfini_task/main.dart';
 
 class DataTextField extends StatelessWidget {
   const DataTextField({
@@ -82,7 +86,7 @@ class DatePickeCalendar extends StatelessWidget {
         );
         if (pickedDate != null) {
           joinDateController.text =
-              DateFormat('dd LLL yyyy').format(pickedDate);
+              DateFormat("yyyy-MM-dd").format(pickedDate).toString();
         }
       },
       decoration: const InputDecoration(
@@ -142,42 +146,30 @@ class CustomButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (isSaveButton) {
-            //   if (formKey1!.currentState!.validate() &&
-            //       formKey2!.currentState!.validate()) {
-            //     EmployeeModelData data = EmployeeModelData(
-            //         employeeName: nameController?.text.trim() ?? "",
-            //         role: roleController?.text.trim() ?? "",
-            //         joinDate: joinDateController?.text.trim() == ""
-            //             ? DateFormat('d LLL yyyy').format(DateTime.now())
-            //             : joinDateController?.text.trim(),
-            //         resignDate: resignDateController?.text.trim() == ""
-            //             ? "No date"
-            //             : resignDateController?.text.trim());
-            //     context
-            //         .read<AddEmployeeBloc>()
-            //         .add(AddEmployeeEvent.addEmployee(data));
-            //     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            //         content: Text(
-            //           "Added",
-            //           style: TextStyle(color: blueColor),
-            //         ),
-            //         dismissDirection: DismissDirection.down,
-            //         backgroundColor: lightButtonBlue));
-            //     Navigator.pushReplacement(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => const ScreenHome(),
-            //         ));
-            //     context
-            //         .read<EmployeeListHomeBloc>()
-            //         .add(const FetchEmployeesEvent());
-            //   }
-            // } else {
-            //   Navigator.pushReplacement(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => const ScreenHome(),
-            //       ));
+            if (formKey1!.currentState!.validate() &&
+                formKey2!.currentState!.validate()) {
+              EmployeeDataModel data = EmployeeDataModel(
+                name: nameController?.text.trim() ?? "",
+                phone: phoneController?.text.trim() ?? "",
+                joinDate: joinDateController?.text.trim() == ""
+                    ? DateTime.now()
+                    : DateTime.parse(
+                        joinDateController?.text ?? DateTime.now().toString()),
+              );
+              context
+                  .read<AddEmployeeDataBloc>()
+                  .add(EmployeeAddingEvent(data: data));
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text(
+                    "Added",
+                    style: TextStyle(color: whiteColor),
+                  ),
+                  dismissDirection: DismissDirection.down,
+                  backgroundColor: Colors.black));
+              navigatorKey.currentState!.pop();
+            }
+          } else {
+            navigatorKey.currentState!.pop();
           }
         },
         child: Center(

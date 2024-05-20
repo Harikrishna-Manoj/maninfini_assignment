@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:maninfini_task/application/add_bloc/add_employee_data_bloc.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
+import 'package:maninfini_task/core/constant/constant.dart';
 import 'package:maninfini_task/core/model/model.dart';
 import 'package:maninfini_task/presentation/screens/page_datatable/screen_employeedata.dart';
 import 'package:maninfini_task/service/database_service/database_service.dart';
@@ -28,21 +30,16 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => EmployeeBloc(),
-          )
+          ),
+          BlocProvider(
+            create: (context) => AddEmployeeDataBloc(),
+          ),
         ],
         child: MaterialApp(
           navigatorKey: navigatorKey,
           title: 'Employee Data',
           debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            datePickerTheme: const DatePickerThemeData(
-              backgroundColor: Colors.white,
-            ),
-            cardTheme: const CardTheme(
-              elevation: 0.0,
-            ),
-            useMaterial3: true,
-          ),
+          theme: themeData,
           home: EmployeeDataScreen(),
         ));
   }

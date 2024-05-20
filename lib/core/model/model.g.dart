@@ -18,7 +18,7 @@ class EmployeeDataModelAdapter extends TypeAdapter<EmployeeDataModel> {
     };
     return EmployeeDataModel(
       name: fields[0] as String?,
-      phone: fields[1] as int?,
+      phone: fields[1] as String?,
       joinDate: fields[2] as DateTime?,
     );
   }
