@@ -7,8 +7,9 @@ final class EmployeeInitial extends EmployeeState {}
 
 final class LoadingState extends EmployeeState {}
 
+// ignore: must_be_immutable
 final class LoadedEmployeeState extends EmployeeState {
   final List<Data> employeeData;
-
-  LoadedEmployeeState({required this.employeeData});
+  bool? isSort;
+  LoadedEmployeeState({required this.employeeData, this.isSort});
 }

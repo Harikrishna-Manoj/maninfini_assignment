@@ -3,24 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
 import 'package:maninfini_task/core/debounce/debounce.dart';
 import 'package:maninfini_task/core/model/model.dart';
+import 'package:maninfini_task/presentation/widgets/widgets.dart';
 
-class EmployeeDataScreen extends StatefulWidget {
-  const EmployeeDataScreen({super.key});
+// ignore: must_be_immutable
+class EmployeeDataScreen extends StatelessWidget {
+  EmployeeDataScreen({super.key});
 
-  @override
-  State<EmployeeDataScreen> createState() => _EmployeeDataScreen();
-}
-
-class _EmployeeDataScreen extends State<EmployeeDataScreen> {
-  bool sort = true;
-  List<Data>? filterData;
   final debouncer = Debouncer(milliseconds: 500);
-
-  @override
-  void initState() {
-    filterData = myData;
-    super.initState();
-  }
 
   TextEditingController controller = TextEditingController();
 
@@ -49,42 +38,9 @@ class _EmployeeDataScreen extends State<EmployeeDataScreen> {
                       ? PaginatedDataTable(
                           showEmptyRows: false,
                           sortColumnIndex: 0,
-                          sortAscending: sort,
-                          header: SizedBox(
-                            height: 50,
-                            child: TextFormField(
-                              cursorColor: Colors.black,
-                              keyboardType: TextInputType.text,
-                              style: const TextStyle(color: Colors.black),
-                              controller: controller,
-                              decoration: const InputDecoration(
-                                  contentPadding:
-                                      EdgeInsets.only(bottom: 35, left: 15),
-                                  prefixIcon: Icon(Icons.search),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(15)),
-                                    borderSide: BorderSide(color: Colors.grey),
-                                  ),
-                                  hintText: 'Enter for filter',
-                                  hintStyle: TextStyle(
-                                      fontSize: 15,
-                                      height: 1.5,
-                                      color: Colors.grey)),
-                              onChanged: (value) {
-                                debouncer.run(() {
-                                  context
-                                      .read<EmployeeBloc>()
-                                      .add(SearchingEvent(query: value));
-                                });
-                              },
-                            ),
-                          ),
+                          sortAscending: state.isSort ?? true,
+                          header:
+                              CustomSearchField(searchController: controller),
                           source: RowSource(
                             myData: state.employeeData,
                             count: state.employeeData.length,
@@ -99,10 +55,9 @@ class _EmployeeDataScreen extends State<EmployeeDataScreen> {
                                       fontSize: 14),
                                 ),
                                 onSort: (columnIndex, ascending) {
-                                  setState(() {
-                                    sort = !sort;
-                                  });
-                                  // onsortColum(columnIndex, ascending);
+                                  context.read<EmployeeBloc>().add(SortingEvent(
+                                      columnIndex: columnIndex,
+                                      ascending: ascending));
                                 }),
                             const DataColumn(
                               label: Text(

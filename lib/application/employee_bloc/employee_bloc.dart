@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/core/model/model.dart';
+import 'package:maninfini_task/service/employee_service/employee_service.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
@@ -22,6 +23,13 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
           .toList();
       emit(LoadedEmployeeState(employeeData: employeeData));
     });
-    on<SortingEvent>((event, emit) {});
+    bool isSort = true;
+    on<SortingEvent>((event, emit) {
+      final service = EmployeeDataService();
+      isSort = !isSort;
+      List<Data> sortingData =
+          service.onSorting(event.columnIndex, event.ascending);
+      emit(LoadedEmployeeState(employeeData: sortingData, isSort: isSort));
+    });
   }
 }
