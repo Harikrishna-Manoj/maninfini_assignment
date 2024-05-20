@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:maninfini_task/application/add_bloc/add_employee_data_bloc.dart';
+import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
 import 'package:maninfini_task/core/constant/constant.dart';
 import 'package:maninfini_task/core/model/model.dart';
 import 'package:maninfini_task/main.dart';
@@ -156,9 +156,7 @@ class CustomButton extends StatelessWidget {
                     : DateTime.parse(
                         joinDateController?.text ?? DateTime.now().toString()),
               );
-              context
-                  .read<AddEmployeeDataBloc>()
-                  .add(EmployeeAddingEvent(data: data));
+              context.read<EmployeeBloc>().add(EmployeeAddingEvent(data: data));
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                   content: Text(
                     "Added",

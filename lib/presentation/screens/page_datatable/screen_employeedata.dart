@@ -37,55 +37,66 @@ class EmployeeDataScreen extends StatelessWidget {
               child: BlocBuilder<EmployeeBloc, EmployeeState>(
                 builder: (context, state) {
                   return state is LoadedEmployeeState
-                      ? PaginatedDataTable(
-                          showEmptyRows: false,
-                          sortColumnIndex: index,
-                          sortAscending: state.isSort ?? false,
-                          header:
-                              CustomSearchField(searchController: controller),
-                          source: RowSource(
-                            employeeData: state.employeeData,
-                            count: state.employeeData.length,
-                          ),
-                          rowsPerPage: 8,
-                          columns: [
-                            DataColumn(
-                                label: const Text(
-                                  "Name",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 14),
+                      ? state.employeeData.isNotEmpty
+                          ? PaginatedDataTable(
+                              showEmptyRows: false,
+                              sortColumnIndex: index,
+                              sortAscending: state.isSort ?? false,
+                              header: CustomSearchField(
+                                  searchController: controller),
+                              source: RowSource(
+                                employeeData: state.employeeData,
+                                count: state.employeeData.length,
+                              ),
+                              rowsPerPage: 8,
+                              columns: [
+                                DataColumn(
+                                    label: const Text(
+                                      "Name",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 14),
+                                    ),
+                                    onSort: (columnIndex, ascending) {
+                                      index = columnIndex;
+                                      context.read<EmployeeBloc>().add(
+                                          SortingEvent(
+                                              columnIndex: columnIndex,
+                                              ascending: ascending));
+                                    }),
+                                const DataColumn(
+                                  label: Text(
+                                    "Phone",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
                                 ),
-                                onSort: (columnIndex, ascending) {
-                                  index = columnIndex;
-                                  context.read<EmployeeBloc>().add(SortingEvent(
-                                      columnIndex: columnIndex,
-                                      ascending: ascending));
-                                }),
-                            const DataColumn(
-                              label: Text(
-                                "Phone",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 14),
-                              ),
-                            ),
-                            DataColumn(
-                              label: const Text(
-                                "Date of Join",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 14),
-                              ),
-                              onSort: (columnIndex, ascending) {
-                                index = columnIndex;
-                                context.read<EmployeeBloc>().add(SortingEvent(
-                                    columnIndex: columnIndex,
-                                    ascending: ascending));
-                              },
-                            ),
-                          ],
-                        )
+                                DataColumn(
+                                  label: const Text(
+                                    "Date of Join",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 14),
+                                  ),
+                                  onSort: (columnIndex, ascending) {
+                                    index = columnIndex;
+                                    context.read<EmployeeBloc>().add(
+                                        SortingEvent(
+                                            columnIndex: columnIndex,
+                                            ascending: ascending));
+                                  },
+                                ),
+                              ],
+                            )
+                          : const Center(
+                              child: Text("No data"),
+                            )
                       : const Center(
-                          child: Text("No data"),
+                          child: CircularProgressIndicator(
+                            color: Colors.black,
+                            strokeWidth: 2,
+                          ),
                         );
                 },
               ),

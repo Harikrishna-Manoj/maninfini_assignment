@@ -7,4 +7,11 @@ class DataManageService {
     final hiveBox = Hive.box<EmployeeDataModel>(employeeBoxName);
     await hiveBox.add(data);
   }
+
+  List<EmployeeDataModel> fetchEmployeeData() {
+    final hiveBox = Hive.box<EmployeeDataModel>(employeeBoxName);
+    List<EmployeeDataModel> employeeData = [...hiveBox.values];
+    print(employeeData.length);
+    return employeeData;
+  }
 }

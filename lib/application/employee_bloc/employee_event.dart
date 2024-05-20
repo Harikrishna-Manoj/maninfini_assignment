@@ -11,6 +11,12 @@ class SearchingEvent extends EmployeeEvent {
   SearchingEvent({required this.query});
 }
 
+class EmployeeAddingEvent extends EmployeeEvent {
+  final EmployeeDataModel data;
+
+  EmployeeAddingEvent({required this.data});
+}
+
 class SortingEvent extends EmployeeEvent {
   final int columnIndex;
   final bool ascending;
