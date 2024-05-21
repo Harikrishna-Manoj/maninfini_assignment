@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:maninfini_task/core/model/model.dart';
-import 'package:maninfini_task/service/data_manage_service/data_manage_service.dart';
-import 'package:maninfini_task/service/employee_service/employee_service.dart';
+import 'package:maninfini_task/domain/model/model.dart';
+import 'package:maninfini_task/domain/service/data_manage_service/data_manage_service.dart';
+import 'package:maninfini_task/domain/service/employee_service/employee_service.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 

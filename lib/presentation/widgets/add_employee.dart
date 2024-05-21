@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
 import 'package:maninfini_task/core/constant/constant.dart';
-import 'package:maninfini_task/core/model/model.dart';
+import 'package:maninfini_task/domain/model/model.dart';
 import 'package:maninfini_task/main.dart';
 
 class DataTextField extends StatelessWidget {

@@ -7,6 +7,7 @@ const Color dividerGreyColor = Color.fromRGBO(229, 229, 229, 1);
 const Color detailsTextGreyColor = Color.fromRGBO(148, 156, 158, 1);
 
 const Color whiteColor = Colors.white;
+
 ThemeData themeData = ThemeData(
   datePickerTheme: const DatePickerThemeData(backgroundColor: whiteColor),
   cardTheme: const CardTheme(

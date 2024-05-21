@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 part of 'employee_bloc.dart';
 
 @immutable
@@ -7,7 +9,6 @@ final class EmployeeInitial extends EmployeeState {}
 
 final class LoadingState extends EmployeeState {}
 
-// ignore: must_be_immutable
 final class LoadedEmployeeState extends EmployeeState {
   final List<EmployeeDataModel> employeeData;
   bool? isSort;

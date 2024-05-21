@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:maninfini_task/core/model/model.dart';
+import 'package:maninfini_task/domain/model/model.dart';
 
 class RowSource extends DataTableSource {
   final List<EmployeeDataModel>? employeeData;
