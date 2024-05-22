@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/core/debounce/debounce.dart';
+import 'package:maninfini_task/main.dart';
+import 'package:maninfini_task/presentation/screens/page_search/search_screen.dart';
 
 import '../../application/employee_bloc/employee_bloc.dart';
 
@@ -8,8 +10,11 @@ class CustomSearchField extends StatefulWidget {
   // ignore: use_key_in_widget_constructors
   const CustomSearchField({
     required this.searchController,
+    required this.isNotSearchField,
   });
   final TextEditingController searchController;
+  final bool isNotSearchField;
+
   @override
   State<CustomSearchField> createState() => _CustomSearchFieldState();
 }
@@ -22,8 +27,14 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
       height: 50,
       child: Material(
         child: TextFormField(
+          onTap: () => widget.isNotSearchField
+              ? navigatorKey.currentState!.push(MaterialPageRoute(
+                  builder: (context) => const ScreenSearch(),
+                ))
+              : null,
           cursorColor: Colors.black,
-          keyboardType: TextInputType.text,
+          keyboardType:
+              widget.isNotSearchField ? TextInputType.none : TextInputType.text,
           style: const TextStyle(color: Colors.black),
           controller: widget.searchController,
           decoration: const InputDecoration(

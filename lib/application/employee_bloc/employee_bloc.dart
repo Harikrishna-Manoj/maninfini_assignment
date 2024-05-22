@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:maninfini_task/core/constant/constant.dart';
 
 import 'package:maninfini_task/domain/model/model.dart';
 import 'package:maninfini_task/domain/service/data_manage_service/data_manage_service.dart';
@@ -16,7 +18,7 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
     on<LoadEmployeeData>((event, emit) {
       emit(LoadingState());
       final employeeData = dataManageService.fetchEmployeeData();
-      employeeModelDataList.addAll(employeeData);
+      employeeModelDataList = [...employeeData];
       emit(LoadedEmployeeState(employeeData: employeeModelDataList));
     });
     on<LoadMoreEmployeeData>((event, emit) {
@@ -24,22 +26,26 @@ class EmployeeBloc extends Bloc<EmployeeEvent, EmployeeState> {
           dataManageService.fetchMoreEmployeeData(event.offset, event.limit);
       employeeModelDataList.addAll(moreEmployeeData);
       emit(LoadedEmployeeState(
-          employeeData: employeeModelDataList,
-          moreDataLength: moreEmployeeData.length));
+        employeeData: employeeModelDataList,
+      ));
     });
     on<EmployeeAddingEvent>((event, emit) async {
       await dataManageService.addEmployeeToDatabase(data: event.data);
-      add(LoadEmployeeData());
+      employeeModelDataList.add(event.data);
+      emit(LoadedEmployeeState(employeeData: employeeModelDataList));
     });
 
     on<SearchingEvent>((event, emit) {
-      List<EmployeeDataModel> filterData = employeeModelDataList
-          .where((element) => element.name!
-              .toString()
-              .toLowerCase()
-              .contains(event.query.toLowerCase()))
-          .toList();
-      emit(LoadedEmployeeState(employeeData: filterData));
+      List<dynamic> filterData =
+          Hive.box<EmployeeDataModel>(employeeBoxName).values.where((employee) {
+        final nameLower = employee.name!.toLowerCase();
+        final searchLower = event.query.toLowerCase();
+        return nameLower.contains(searchLower);
+      }).toList();
+      if (event.query == "") {
+        filterData.clear();
+      }
+      emit(LoadedSearchEmployeeState(searchEmployeeData: filterData));
     });
 
     on<SortingEvent>((event, emit) {

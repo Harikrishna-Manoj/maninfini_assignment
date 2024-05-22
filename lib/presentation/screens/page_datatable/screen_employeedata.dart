@@ -34,7 +34,11 @@ class EmployeeDataScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              CustomSearchField(searchController: controller),
+              Hero(
+                tag: "searchfield",
+                child: CustomSearchField(
+                    searchController: controller, isNotSearchField: true),
+              ),
               SizedBox(
                 height: size.height * 0.05,
               ),

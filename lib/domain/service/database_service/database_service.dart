@@ -4,6 +4,11 @@ import 'package:maninfini_task/domain/model/model.dart';
 
 class DatabaseService {
   static openDataBase() async {
-    await Hive.openBox<EmployeeDataModel>(employeeBoxName);
+    final database = await Hive.openBox<EmployeeDataModel>(employeeBoxName);
+    if (database.isEmpty) {
+      for (var i = 0; i < employees.length; i++) {
+        database.add(employees[i]);
+      }
+    }
   }
 }

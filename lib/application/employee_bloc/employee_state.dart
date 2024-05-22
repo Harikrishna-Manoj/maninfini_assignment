@@ -11,6 +11,12 @@ final class LoadingState extends EmployeeState {}
 
 final class LoadedEmployeeState extends EmployeeState {
   final List<EmployeeDataModel> employeeData;
-  int? moreDataLength;
-  LoadedEmployeeState({required this.employeeData, this.moreDataLength});
+
+  LoadedEmployeeState({required this.employeeData});
+}
+
+final class LoadedSearchEmployeeState extends EmployeeState {
+  final List<dynamic> searchEmployeeData;
+
+  LoadedSearchEmployeeState({required this.searchEmployeeData});
 }

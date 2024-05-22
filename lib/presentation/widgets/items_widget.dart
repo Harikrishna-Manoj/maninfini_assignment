@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
+import 'package:maninfini_task/domain/service/data_manage_service/data_manage_service.dart';
 
 class ItemsWidget extends StatefulWidget {
   const ItemsWidget({
@@ -16,7 +17,7 @@ class ItemsWidget extends StatefulWidget {
 
 class _ItemsWidgetState extends State<ItemsWidget> {
   final ScrollController controller = ScrollController();
-
+  DataManageService dataManageService = DataManageService();
   bool hasMore = true;
   int offset = 15;
   int limit = 15;
@@ -29,12 +30,14 @@ class _ItemsWidgetState extends State<ItemsWidget> {
 
   void _onScroll() {
     if (controller.position.maxScrollExtent == controller.offset) {
+      final moreEmployeeData =
+          dataManageService.fetchMoreEmployeeData(offset, limit);
       context
           .read<EmployeeBloc>()
           .add(LoadMoreEmployeeData(offset: offset, limit: limit));
       setState(() {
         offset += limit;
-        if (widget.state.moreDataLength! < limit) {
+        if (moreEmployeeData.length < limit) {
           hasMore = false;
         }
       });

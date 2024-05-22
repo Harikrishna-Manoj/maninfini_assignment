@@ -17,8 +17,11 @@ class DataManageService {
 
   List<EmployeeDataModel> fetchMoreEmployeeData(int offset, int limit) {
     final hiveBox = Hive.box<EmployeeDataModel>(employeeBoxName);
+
     List<EmployeeDataModel> employeeData =
-        hiveBox.values.skip(offset).take(limit).toList();
+        hiveBox.values.toList().skip(offset).take(limit).toList();
+    // print(employeeData.length);
+
     return employeeData;
   }
 }
