@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
-import 'package:maninfini_task/main.dart';
+import 'package:maninfini_task/presentation/screens/page_datatable/screen_employeedata.dart';
 import 'package:maninfini_task/presentation/widgets/custom_search_widget.dart';
 
 class ScreenSearch extends StatelessWidget {
@@ -22,7 +21,10 @@ class ScreenSearch extends StatelessWidget {
               Row(
                 children: [
                   IconButton(
-                      onPressed: () => navigatorKey.currentState!.pop(),
+                      onPressed: () => Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                            builder: (context) => EmployeeDataScreen(),
+                          )),
                       icon: const Icon(Icons.keyboard_arrow_left)),
                   Expanded(
                     child: Hero(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:maninfini_task/core/debounce/debounce.dart';
-import 'package:maninfini_task/main.dart';
 import 'package:maninfini_task/presentation/screens/page_search/search_screen.dart';
 
 import '../../application/employee_bloc/employee_bloc.dart';
@@ -28,7 +27,7 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
       child: Material(
         child: TextFormField(
           onTap: () => widget.isNotSearchField
-              ? navigatorKey.currentState!.push(MaterialPageRoute(
+              ? Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const ScreenSearch(),
                 ))
               : null,
