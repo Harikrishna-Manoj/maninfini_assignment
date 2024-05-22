@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:maninfini_task/application/employee_bloc/employee_bloc.dart';
 import 'package:maninfini_task/presentation/screens/page_datatable/screen_employeedata.dart';
+import 'package:maninfini_task/presentation/widgets/alert_widget.dart';
 import 'package:maninfini_task/presentation/widgets/custom_search_widget.dart';
 
 class ScreenSearch extends StatelessWidget {
@@ -15,7 +16,7 @@ class ScreenSearch extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10),
           child: Column(
             children: [
               Row(
@@ -45,45 +46,34 @@ class ScreenSearch extends StatelessWidget {
                   return state is LoadedSearchEmployeeState
                       ? state.searchEmployeeData.isNotEmpty
                           ? Expanded(
-                              child: ListView.builder(
+                              child: ListView.separated(
+                              separatorBuilder: (context, index) =>
+                                  const Divider(),
                               itemCount: state.searchEmployeeData.length,
                               itemBuilder: (context, index) {
                                 return SizedBox(
                                   height: 30,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(
-                                        left: size.width * 0.08),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          state.searchEmployeeData[index].name!,
-                                        ),
-                                        Text(state
-                                            .searchEmployeeData[index].phone!),
-                                        Text(DateFormat("dd LLL yyyy").format(
-                                            state.searchEmployeeData[index]
-                                                .joinDate!)),
-                                      ],
-                                    ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        state.searchEmployeeData[index].name!,
+                                      ),
+                                      Text(state
+                                          .searchEmployeeData[index].phone!),
+                                      Text(DateFormat("dd LLL yyyy").format(
+                                          state.searchEmployeeData[index]
+                                              .joinDate!)),
+                                    ],
                                   ),
                                 );
                               },
                             ))
-                          : Flexible(
-                              child: SizedBox(
-                                  width: size.width,
-                                  height: size.height * 0.6,
-                                  child: const Center(child: Text("No data"))),
+                          : const AlertWidget(
+                              alert: "No data",
                             )
-                      : Flexible(
-                          child: SizedBox(
-                              width: size.width,
-                              height: size.height * 0.6,
-                              child:
-                                  const Center(child: Text("Search for user"))),
-                        );
+                      : const AlertWidget(alert: "Search for user");
                 },
               )
             ],

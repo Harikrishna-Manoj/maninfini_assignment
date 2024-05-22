@@ -6,6 +6,7 @@ import 'package:maninfini_task/core/debounce/debounce.dart';
 
 import 'package:maninfini_task/main.dart';
 import 'package:maninfini_task/presentation/screens/page_add_employee/screen_add_employee.dart';
+import 'package:maninfini_task/presentation/widgets/alert_widget.dart';
 import 'package:maninfini_task/presentation/widgets/cloumn_heading.dart';
 import 'package:maninfini_task/presentation/widgets/custom_search_widget.dart';
 import 'package:maninfini_task/presentation/widgets/items_widget.dart';
@@ -51,11 +52,8 @@ class EmployeeDataScreen extends StatelessWidget {
                   return state is LoadedEmployeeState
                       ? state.employeeData.isNotEmpty
                           ? Expanded(child: ItemsWidget(state: state))
-                          : Flexible(
-                              child: SizedBox(
-                                  width: size.width,
-                                  height: size.height * 0.6,
-                                  child: const Center(child: Text("No data"))),
+                          : const AlertWidget(
+                              alert: "No data",
                             )
                       : const Center(
                           child: CircularProgressIndicator(

@@ -26,14 +26,15 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
       height: 50,
       child: Material(
         child: TextFormField(
+          focusNode: widget.isNotSearchField ? AlwaysDisabledFocusNode() : null,
+          autofocus: widget.isNotSearchField ? false : true,
           onTap: () => widget.isNotSearchField
               ? Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) => const ScreenSearch(),
                 ))
               : null,
           cursorColor: Colors.black,
-          keyboardType:
-              widget.isNotSearchField ? TextInputType.none : TextInputType.text,
+          keyboardType: widget.isNotSearchField ? null : TextInputType.text,
           style: const TextStyle(color: Colors.black),
           controller: widget.searchController,
           decoration: const InputDecoration(
@@ -59,4 +60,9 @@ class _CustomSearchFieldState extends State<CustomSearchField> {
       ),
     );
   }
+}
+
+class AlwaysDisabledFocusNode extends FocusNode {
+  @override
+  bool get hasFocus => false;
 }
