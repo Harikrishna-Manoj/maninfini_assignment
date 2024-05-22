@@ -11,6 +11,6 @@ final class LoadingState extends EmployeeState {}
 
 final class LoadedEmployeeState extends EmployeeState {
   final List<EmployeeDataModel> employeeData;
-  bool? isSort;
-  LoadedEmployeeState({required this.employeeData, this.isSort});
+  int? moreDataLength;
+  LoadedEmployeeState({required this.employeeData, this.moreDataLength});
 }
