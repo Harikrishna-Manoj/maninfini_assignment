@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:maninfini_task/domain/model/model.dart';
 
-class RowSource extends DataTableSource {
+class RowSource {
   final List<EmployeeDataModel>? employeeData;
   final int count;
   RowSource({
@@ -10,23 +10,17 @@ class RowSource extends DataTableSource {
     required this.count,
   });
 
-  @override
-  DataRow? getRow(int index) {
-    if (index < rowCount) {
-      return recentFileDataRow(employeeData![index]);
+  List<DataRow> getRow() {
+    List<DataRow> listOfDataRow = [];
+    if (count > 0) {
+      for (var i = 0; i < count; i++) {
+        listOfDataRow.add(recentFileDataRow(employeeData![i]));
+      }
+      return listOfDataRow;
     } else {
-      return null;
+      return [];
     }
   }
-
-  @override
-  bool get isRowCountApproximate => false;
-
-  @override
-  int get rowCount => count;
-
-  @override
-  int get selectedRowCount => 0;
 }
 
 DataRow recentFileDataRow(var data) {

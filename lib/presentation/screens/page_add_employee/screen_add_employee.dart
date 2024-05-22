@@ -29,7 +29,7 @@ class ScreenAddEmployee extends StatelessWidget {
             children: [
               DataTextField(
                 formKey: formKey1,
-                hintString: "Employee name",
+                hintString: "User name",
                 textFieldPrefixIcon: const Icon(Icons.person_outline),
                 controller: employeeNameController,
                 isNumberField: false,
